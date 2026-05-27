@@ -1,0 +1,6 @@
+NO ./mapas/textures/north.xpm
+SO ./mapas/textures/south.xpm
+WE ./mapas/textures/west.xpm
+EA ./mapas/textures/east.xpm
+F 220,100,0
+C 225,30,0
