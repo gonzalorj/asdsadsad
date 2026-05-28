@@ -12,7 +12,7 @@ static void get_matrix_size(t_scene *scene)
 	while(curr && !is_empty_line(curr->line))
 	{
 		h++;
-		if(ft_strlen(curr->line) > w)
+		if((int)ft_strlen(curr->line) > w)
 			w = ft_strlen(curr->line);
 		curr = curr->next;
 	}

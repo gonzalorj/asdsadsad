@@ -16,7 +16,7 @@ static void rotate(t_player *p, double a)
 static int press_event(int code, t_scene *s)
 {
 	if (code == XK_Escape)
-		exit_success(s);
+		exit_event(s);
 	else if (code == XK_w || code == XK_W)
 		s->key.w = 1;
 	else if (code == XK_a || code == XK_A)
@@ -29,6 +29,7 @@ static int press_event(int code, t_scene *s)
 		s->key.left = 1;
 	else if (code == XK_Right)
 		s->key.right = 1;
+	return (0);
 }
 
 static int release_event(int code, t_scene *s)
@@ -58,9 +59,9 @@ static int move_loop(t_scene *s)
 		walk_backwards(s);
 	if(s->key.d)
 		walk_right(s);
-	if(s->key.w)
+	if(s->key.left)
 		rotate(&s->player, -RS);
-	if(s->key.w)
+	if(s->key.right)
 		rotate(&s->player, RS);
 	render(s);
 	return (0);

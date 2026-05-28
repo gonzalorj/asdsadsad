@@ -67,15 +67,7 @@
 ** - ERRORES QUE CONTROLA:
 **   [1] extensión no es ".cub" o nombre muy corto
 */
-static void	check_cub_extension(const char *filename)
-{
-	size_t	len;
 
-	len = c3d_strlen(filename);
-	if (len < 5 || safe_strncmp(filename + (len - 4), ".cub", 4) != 0)
-		/* [1] */
-		parser_error(NULL, NULL, "Invalid file extension. Expected .cub");
-}
 
 char *get_lines(char *filename, t_scene *scene)
 {
@@ -95,13 +87,13 @@ char *get_lines(char *filename, t_scene *scene)
 
 void trim_nl(char *line)
 {
-	int i;
+    int i = 0;
 
-	i = 0;
-	while (line[i])
-		i++;
-	if (i > 0 && line[i - 1] == '\n')
-		line[i - 1] = '\0';
+    while (line[i])
+        i++;
+
+    while (i > 0 && (line[i - 1] == '\n' || line[i - 1] == '\r'))
+        line[--i] = '\0';
 }
 
 static void	check_map_data(t_scene *scene)
@@ -109,7 +101,7 @@ static void	check_map_data(t_scene *scene)
 	if (!scene->map.matrix|| !scene->map.no_txtr || !scene->map.so_txtr
 		|| !scene->map.we_txtr || !scene->map.ea_txtr
 		|| scene->map.f_color == -1 || scene->map.c_color == -1)
-		parser_error(scene,"NULL", "Missing data");
+		parser_error(scene,NULL, "Missing data");
 }
 
 void	parse_cub_file(t_scene *scene, char *filename)
@@ -133,5 +125,4 @@ void	parse_cub_file(t_scene *scene, char *filename)
 	build_matrix(scene);
 	check_surroundings(scene);
 	check_map_data(scene);
-	
 }

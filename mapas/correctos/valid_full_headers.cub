@@ -2,11 +2,11 @@ NO ./mapas/textures/north.xpm
 SO ./mapas/textures/south.xpm
 WE ./mapas/textures/west.xpm
 EA ./mapas/textures/east.xpm
-F 220,100,0
-C 225,30,0
+F 220, 100, 0
+C 225, 30, 0
 
 111111111
 100000001
-1011001 1
-10 0N0 01
+101100101
+1000N0001
 111111111

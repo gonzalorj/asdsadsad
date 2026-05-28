@@ -8,18 +8,8 @@
 **   el puntero al campo apropiado, o NULL si no coincide.
 ** - NOTA: static porque solo se usa dentro de este archivo.
 */
-static char	**select_texture_memory(t_scene *scene, char *path)
-{
-	if (path[0] == 'N' && path[1] == 'O' && path[2] == '\0')
-		return (&scene->tex.north);
-	if (path[0] == 'S' && path[1] == 'O' && path[2] == '\0')
-		return (&scene->tex.south);
-	if (path[0] == 'W' && path[1] == 'E' && path[2] == '\0')
-		return (&scene->tex.west);
-	if (path[0] == 'E' && path[1] == 'A' && path[2] == '\0')
-		return (&scene->tex.east);
-	return (NULL);
-}
+
+
 
 /*
 ** ENSURE_TEXTURE_FILE_EXISTS:
@@ -29,16 +19,6 @@ static char	**select_texture_memory(t_scene *scene, char *path)
 ** - ERRORES QUE CONTROLA:
 **   [1] archivo de textura no existe o no es legible
 */
-static int	ensure_texture_file_exists(const char *path)
-{
-	int	fd;
-
-	fd = open(path, O_RDONLY);
-	if (fd < 0)
-		return (0);
-	close(fd);
-	return (1);
-}
 
 /*
 ** PARSE_TEXTURE_LINE:

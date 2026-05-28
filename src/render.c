@@ -4,7 +4,7 @@ void draw_pixel(t_img *image, int x, int y, int rgb)
 {
 	int pixel_i;
 
-	if(x >= 0 < WDW_HEIGHT && y >= 0 && y < WDW_HEIGHT)
+	if(x >= 0 && x < WDW_WIDTH && y >= 0 && y < WDW_HEIGHT)
 	{
 		pixel_i = (x * image->bpp / 8) + (y * image->len);
 		*(int *)(image->addr + pixel_i) = rgb;

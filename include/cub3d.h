@@ -78,20 +78,6 @@ typedef struct s_player
 ** - width:  Ancho del mapa (máximo número de columnas)
 ** - height: Alto del mapa (número total de filas)
 */
-typedef struct s_map
-{
-	char	**matrix;
-	int		width;
-	int		height;
-	int		f_color;
-	int		c_color;
-	int		fd;
-	char	*no_txtr;
-	char	*so_txtr;
-	char	*we_txtr;
-	char	*ea_txtr;
-	t_node		*list;
-}t_map;
 
 /*
 ** s_textures: Almacena rutas a archivos de textura para cada pared
@@ -120,15 +106,6 @@ typedef struct s_textures
 ** Todo lo definido en el archivo de configuración se parsea y almacena aquí
 ** para ser utilizado por el motor de raycasting en el programa principal.
 */
-
-typedef struct s_txtr
-{
-	t_img		no;
-	t_img		so;
-	t_img 		ea;
-	t_img		we;
-}
-				t_txtr;
 typedef struct s_img
 {
 	void		*img;
@@ -140,6 +117,16 @@ typedef struct s_img
 	int			len;
 }				t_img;
 
+typedef struct s_txtr
+{
+	t_img		no;
+	t_img		so;
+	t_img 		ea;
+	t_img		we;
+}
+				t_txtr;
+
+
 typedef struct s_key
 {
 	int					w;
@@ -148,14 +135,35 @@ typedef struct s_key
 	int					d;
 	int					left;
 	int					right;
-}						t_key;
+}
+						t_key;
+typedef struct s_node
+{
+	char				*line;
+	struct s_node	*next;
+}						t_node;
+
+typedef struct s_map
+{
+	char	**matrix;
+	int		width;
+	int		height;
+	int		f_color;
+	int		c_color;
+	int		fd;
+	char	*no_txtr;
+	char	*so_txtr;
+	char	*we_txtr;
+	char	*ea_txtr;
+	t_node		*list;
+}t_map;
+
 
 typedef struct s_scene
 {
 	t_txtr		txtr;
 	t_rgb		floor;
 	t_rgb		ceiling;
-	t_map		map;
 	t_player	player;
 	int 		map_scale;
 	int			controls;
@@ -167,18 +175,13 @@ typedef struct s_scene
 	t_key		key;
 }t_scene;
 
-typedef struct s_node
-{
-	char				*line;
-	struct s_node	*next;
-}						t_node;
+
 
 
 
 
 
 // INIT
-void	init_scene(t_scene *scene);
 
 // ERROR + FREE
 //void	free_texture_paths(t_scene *scene)
@@ -240,5 +243,8 @@ void walk_backwards(t_scene *s);
 void walk_right(t_scene *s);
 int	exit_event(t_scene *scene);
 void events(t_scene *scene);
+void	free_textures(t_scene *s);
+void get_wall(t_scene *s, int x);
+void get_rays(t_scene *scene);
 
 #endif

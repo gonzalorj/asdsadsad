@@ -91,9 +91,9 @@ void get_rays(t_scene *scene)
 	while(x < WDW_WIDTH)
 	{
 		cam = 2.0 * x / (double)WDW_WIDTH - 1.0;
-		memset(&scene->ray, 0, sizeof(t_ray));
+		ft_memset(&scene->ray, 0, sizeof(t_ray));
 		get_dist(scene, cam);
-		get_walls(scene, x);
+		get_wall(scene, x);
 		x++;
 	}
 }

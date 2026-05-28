@@ -9,7 +9,7 @@ static bool check_char(char *s)
 	i = 0;
 	while(s[i])
 	{
-		if(!ft_strchr(valid, s[i]));
+		if(!ft_strchr(valid, s[i]))
 			return (1);
 		i++;
 	}
@@ -64,9 +64,9 @@ static void check_map_enclosure(int y, int x, t_scene *scene)
 	if (y == 0 || y >= scene->map.height - 1 || x == 0 || x >= scene->map.width - 1)
 	{
 		if (ft_strchr("NSWE", scene->map.matrix[y][x]))
-			error_exit(scene, "Invalid map.");
+			parser_error(scene,NULL, "Invalid map.");
 		else if (scene->map.matrix[y][x] == '0')
-			error_exit(scene, "Invalid map");
+			parser_error(scene,NULL, "Invalid map");
 		
 	}
 	u = scene->map.matrix[y - 1][x];
@@ -74,7 +74,7 @@ static void check_map_enclosure(int y, int x, t_scene *scene)
 	l = scene->map.matrix[y][x - 1];
 	r = scene->map.matrix[y][x + 1];
 	if (u == ' ' || d == ' ' || l == ' ' || r == ' ')
-		error_exit(scene, "Map isnt fully surrounded by walls.");
+		parser_error(scene,NULL, "Map isnt fully surrounded by walls.");
 }
 
 void check_surroundings(t_scene *scene)

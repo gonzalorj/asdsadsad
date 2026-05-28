@@ -19,6 +19,16 @@ static int pixel_rgb(t_img *wall, int x_txtr, int y_txtr)
 	return (*(int *)s);
 }
 
+static void	get_wall_bounds(int *start, int *end, int height)
+{
+	*start = WDW_HEIGHT / 2 - height / 2;
+	if (*start < 0)
+		*start = 0;
+	*end = WDW_HEIGHT / 2 + height / 2;
+	if (*end >= WDW_HEIGHT)
+		*end = WDW_HEIGHT - 1;
+}
+
 static void get_column(t_scene *s, t_img *wall, int x, int height)
 {
 	int x_txtr;
@@ -28,7 +38,7 @@ static void get_column(t_scene *s, t_img *wall, int x, int height)
 	int end;
 
 	get_wall_bounds(&start, &end, height);
-	x_txtr = txtr_x(start, height, wall->h);
+	x_txtr = txtr_x(&s->ray, wall, &s->player);
 	while(start <= end)
 	{
 		y_txtr = txtr_y(start, height, wall->h);

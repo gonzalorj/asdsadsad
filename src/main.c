@@ -1,4 +1,4 @@
-# include "cub3d.h"
+# include "../include/cub3d.h"
 
 // PARSE
 // ** Flujo general:
@@ -25,25 +25,25 @@ static void parse_args(int argc, char **argv)
 	char *name;
 
 	if(argc != 2)
-		parser_error(NULL, NULL, "Invalid number of arguments.");
+		ft_error("Invalid number of arguments.\n");
 	name = ft_strrchr(argv[1], '/');
 	if (name)
 		name++;
 	else
 		name = argv[1];
 	if (name[0] == '.')
-		parser_error(NULL, NULL, "Hidden files are not allowed");
+		ft_error("Hidden files are not allowed\n");
 	fd = open(argv[1], O_RDONLY);
 	if (fd < 0 || read(fd, NULL, 0) < 0)
-		{
-			if (fd >= 0)
-				close(fd);
-			parser_error(NULL, NULL, "File cannot be opened or readed");
-		}
+	{
+		if(fd >= 0)
+			close(fd);
+		ft_error("File cannot be opened or readed\n");
+	}
 	close(fd);
 	str = ft_strrchr(argv[1], '.');
 	if (!str || ft_strcmp(str, ".cub") || ft_strlen(str) != 4)
-		exit_failure("Invalid format");
+		ft_error("Invalid format.\n");
 }
 
 static void	init_scene(t_scene *scene)
@@ -101,14 +101,22 @@ static void get_start_pos(t_scene *scene)
 int main(int argc, char **argv)
 {
 	t_scene scene;
-
+	printf("1\n");
 	parse_args(argc, argv);
+	printf("2\n");
 	init_scene(&scene);
+	printf("3\n");
 	parse_cub_file(&scene, argv[1]);
+	printf("4\n");
 	init_mlx(&scene, TITLE);
+	printf("5\n");
 	get_start_pos(&scene);
+	printf("6\n");
 	render(&scene);
+	printf("7\n");
 	events(&scene);
+	printf("8\n");
 	mlx_loop(scene.mlx);
+	printf("9\n");
 	return (0);
 }

@@ -42,13 +42,7 @@
 **   libre del mapa (aun no implementado completamente).
 ** - NOTA: punto de entrada para liberación de escena en caso de error.
 */
-static void	free_scene(t_scene *scene)
-{
-	if (!scene)
-		return ;
-	free_texture_paths(scene);
-//	free_map_data(scene);
-}
+
 
 /*
 ** FREE_LINES:
@@ -83,13 +77,13 @@ static void	free_lines(char **lines)
 */
 void	parser_error(t_scene *scene, char **lines, const char *msg)
 {
-	free_scene(scene);/* TO DO	*/
-	free_lines(lines);/* TO DO */
+	exit_event(scene);
+	free_lines(lines);
 	write(2, "Error: ", 7);
 	if (msg)
 	{
 		write(2, msg, c3d_strlen(msg));
 		write(2, "\n", 1);
 	}
-	exit(EXIT_FAILURE);/* no debería haber ningun problema; los frees estan hechos */
+	exit(EXIT_FAILURE);
 }

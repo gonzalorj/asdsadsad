@@ -3,21 +3,22 @@
 
 int txtr_x(t_ray *r, t_img *wall, t_player *player)
 {
-	double x;
-	int txtr;
+    double wall_x;
+    int x;
 
-	if(r->side == 0)
-		x = player->player_y + r->wall_dist * r->dir_y;
-	else
-		x = player->player_x + r->wall_dist * r->dir_x;
-	x -= floor(x);
-	txtr = (int)(x * wall->w);
-	if(r->side == 0 && r->dir_x < 0)
-		txtr = wall->w - txtr - 1;
-	if(r->side == 1 && r->dir_x > 0)
-		txtr = wall->w - txtr - 1;
-	txtr = limit_n(txtr, 0, wall->w - 1);
-	return (txtr);
+    if (r->side == 0)
+        wall_x = player->player_y + r->wall_dist * r->dir_y;
+    else
+        wall_x = player->player_x + r->wall_dist * r->dir_x;
+
+    wall_x -= floor(wall_x);
+
+    x = (int)(wall_x * wall->w);
+    if ((r->side == 0 && r->dir_x > 0) ||
+        (r->side == 1 && r->dir_y < 0))
+        x = wall->w - x - 1;
+
+    return limit_n(x, 0, wall->w - 1);
 }
 
 int	txtr_y(int y, int height, int txtr_h)
@@ -29,7 +30,7 @@ int	txtr_y(int y, int height, int txtr_h)
 	start = (WDW_HEIGHT - height) / 2;
 	pos_wall = (double)(y - start) / height;
 	txtr_y = (int)(pos_wall * txtr_h);
-	txtr_y = clamp_int(txtr_y, 0, txtr_h - 1);
+	txtr_y = limit_n(txtr_y, 0, txtr_h - 1);
 	return (txtr_y);
 }
 
