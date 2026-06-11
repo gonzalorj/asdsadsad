@@ -12,7 +12,7 @@ LIBFT_DIR = libft
 LIBFT_A = $(LIBFT_DIR)/libft.a
 
 SRCS = src/main.c \
-	src/free_error.c/error.c \
+	src/utils/error.c \
 	src/parse/map_validating.c \
 	src/parse/matrix.c \
 	src/parse/parse_1.c \
@@ -22,15 +22,15 @@ SRCS = src/main.c \
 	src/parse/parse_utils.c \
 	src/parse/parser_colors.c \
 	src/parse/parser_texture.c \
-	src/hooks.c \
-	src/position.c \
-	src/raycast.c \
-	src/render.c \
-	src/textures.c \
-	src/utils.c \
-	src/utils2.c \
-	src/walk.c \
-	src/walls.c
+	src/utils/hooks.c \
+	src/renders/position.c \
+	src/renders/raycast.c \
+	src/renders/render.c \
+	src/renders/textures.c \
+	src/utils/utils.c \
+	src/utils/utils2.c \
+	src/renders/walk.c \
+	src/renders/walls.c
 
 OBJS = $(SRCS:.c=.o)
 

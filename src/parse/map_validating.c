@@ -1,96 +1,107 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map_validating.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gorodrig <gorodrig@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/06/11 10:00:38 by gorodrig          #+#    #+#             */
+/*   Updated: 2026/06/11 10:03:25 by gorodrig         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/cub3d.h"
 
-static bool check_char(char *s)
+static bool	check_char(char *s)
 {
-	char *valid;
-	int i;
+	char	*valid;
+	int		i;
 
 	valid = "NWES 01";
 	i = 0;
-	while(s[i])
+	while (s[i])
 	{
-		if(!ft_strchr(valid, s[i]))
+		if (!ft_strchr(valid, s[i]))
 			return (1);
 		i++;
 	}
 	return (0);
 }
 
-static int count_player(char *s)
+static int	count_player(char *s)
 {
-	char *valid;
-	int 	i;
-	int 	n;
+	char	*valid;
+	int		i;
+	int		n;
 
 	valid = "NWES";
 	i = 0;
 	n = 0;
 	while (s[i])
 	{
-		if(ft_strchr(valid, s[i]))
+		if (ft_strchr(valid, s[i]))
 			n++;
 		i++;
 	}
 	return (n);
 }
 
-void check_map_lines(t_scene *scene, t_node *head)
+void	check_map_lines(t_scene *scene, t_node *head)
 {
-	t_node *curr;
+	t_node	*curr;
 	int		n;
 
-	if(!head)
+	if (!head)
 		parser_error(scene, NULL, "Missing node.");
 	n = 0;
 	curr = head;
-	while(curr)
+	while (curr)
 	{
-		if(check_char(curr->line))
+		if (check_char(curr->line))
 			parser_error(scene, NULL, "Invalid characters.");
 		n += count_player(curr->line);
 		curr = curr->next;
 	}
-	if(n != 1)
+	if (n != 1)
 		parser_error(scene, NULL, "Only 1 player allowed.");
 }
 
-static void check_map_enclosure(int y, int x, t_scene *scene)
+static void	check_map_enclosure(int y, int x, t_scene *s)
 {
 	int	u;
 	int	d;
 	int	l;
 	int	r;
 
-	if (y == 0 || y >= scene->map.height - 1 || x == 0 || x >= scene->map.width - 1)
+	if (y == 0 || y >= s->map.height - 1 || x == 0 || x >= s->map.width - 1)
 	{
-		if (ft_strchr("NSWE", scene->map.matrix[y][x]))
-			parser_error(scene,NULL, "Invalid map.");
-		else if (scene->map.matrix[y][x] == '0')
-			parser_error(scene,NULL, "Invalid map");
-		
+		if (ft_strchr("NSWE", s->map.matrix[y][x]))
+			parser_error(s, NULL, "Invalid map.");
+		else if (s->map.matrix[y][x] == '0')
+			parser_error(s, NULL, "Invalid map");
 	}
-	u = scene->map.matrix[y - 1][x];
-	d = scene->map.matrix[y + 1][x];
-	l = scene->map.matrix[y][x - 1];
-	r = scene->map.matrix[y][x + 1];
+	u = s->map.matrix[y - 1][x];
+	d = s->map.matrix[y + 1][x];
+	l = s->map.matrix[y][x - 1];
+	r = s->map.matrix[y][x + 1];
 	if (u == ' ' || d == ' ' || l == ' ' || r == ' ')
-		parser_error(scene,NULL, "Map isnt fully surrounded by walls.");
+		parser_error(s, NULL, "Map isnt fully surrounded by walls.");
 }
 
-void check_surroundings(t_scene *scene)
+void	check_surroundings(t_scene *scene)
 {
-	int y;
-	int x;
-	char cell;
+	int		y;
+	int		x;
+	char	cell;
 
 	y = 0;
-	while(y < scene->map.height)
+	while (y < scene->map.height)
 	{
 		x = 0;
-		while(x < scene->map.width)
+		while (x < scene->map.width)
 		{
 			cell = scene->map.matrix[y][x];
-			if(ft_strchr("0NSEW", cell))
+			if (ft_strchr("0NSEW", cell))
 				check_map_enclosure(y, x, scene);
 			x++;
 		}
