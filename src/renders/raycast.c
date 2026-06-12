@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   raycast.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gonza <gonza@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/06/12 15:18:17 by gonza             #+#    #+#             */
+/*   Updated: 2026/06/12 15:19:03 by gonza            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/cub3d.h"
 
-static void build_ray(t_scene *scene, t_ray *ray, double cam)
+static void	build_ray(t_scene *scene, t_ray *ray, double cam)
 {
 	ray->dir_x = scene->player.look_dir_x + scene->player.camera_plane_x * cam;
 	ray->dir_y = scene->player.look_dir_y + scene->player.camera_plane_y * cam;
@@ -14,7 +26,7 @@ static void build_ray(t_scene *scene, t_ray *ray, double cam)
 	ray->d_dist_y = fabs(1.0 / ray->dir_y);
 }
 
-void init_ray_dda(t_scene *s, t_ray *r)
+void	init_ray_dda(t_scene *s, t_ray *r)
 {
 	if (r->dir_x < 0)
 	{
@@ -38,7 +50,7 @@ void init_ray_dda(t_scene *s, t_ray *r)
 	}
 }
 
-static void dda(t_scene *s, t_ray *r)
+static void	dda(t_scene *s, t_ray *r)
 {
 	r->touch = 0;
 	while (!r->touch)
@@ -60,10 +72,10 @@ static void dda(t_scene *s, t_ray *r)
 	}
 }
 
-static void get_dist(t_scene *s, double cam)
+static void	get_dist(t_scene *s, double cam)
 {
-	t_ray *r;
-	double dis;
+	t_ray	*r;
+	double	dis;
 
 	r = &s->ray;
 	build_ray(s, r, cam);
@@ -79,16 +91,15 @@ static void get_dist(t_scene *s, double cam)
 		r->wall_dist = dis / r->dir_y;
 	if (r->wall_dist < 0.01)
 		r->wall_dist = 0.01;
-
 }
 
-void get_rays(t_scene *scene)
+void	get_rays(t_scene *scene)
 {
-	int 	x;
-	double 	cam;
+	int		x;
+	double	cam;
 
 	x = 0;
-	while(x < WDW_WIDTH)
+	while (x < WDW_WIDTH)
 	{
 		cam = 2.0 * x / (double)WDW_WIDTH - 1.0;
 		ft_memset(&scene->ray, 0, sizeof(t_ray));

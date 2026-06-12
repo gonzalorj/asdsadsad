@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils2.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gonza <gonza@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/06/12 15:34:55 by gonza             #+#    #+#             */
+/*   Updated: 2026/06/12 15:35:06 by gonza            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/cub3d.h"
 
 static void	free_texture_helper(t_scene *s, t_img *txtr)
@@ -17,5 +29,3 @@ void	free_textures(t_scene *s)
 	free_texture_helper(s, &s->txtr.we);
 	free_texture_helper(s, &s->txtr.ea);
 }
-
-

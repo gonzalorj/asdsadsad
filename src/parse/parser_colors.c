@@ -1,5 +1,16 @@
-# include "cub3d.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser_colors.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gonza <gonza@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/06/12 15:10:44 by gonza             #+#    #+#             */
+/*   Updated: 2026/06/12 15:10:44 by gonza            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
+#include "cub3d.h"
 
 static char	*skip_spaces(char *line)
 {
@@ -8,33 +19,33 @@ static char	*skip_spaces(char *line)
 	return (line);
 }
 
-static char *rgb_syntax(char *trimmed, int rgb)
+static char	*rgb_syntax(char *trimmed, int rgb)
 {
-    char *s;
+	char	*s;
 
-    if (rgb < 0 || rgb > 255)
-        return ("Number must be in between 0-255 range");
-    s = skip_spaces(trimmed);
-    if (*s == '-' || *s == '+')
-        return ("Invalid format");
-    if (!ft_isdigit(*s))
-        return ("Invalid format");
-    while (ft_isdigit(*s))
-        s++;
-    s = skip_spaces(s);
-    if (*s != '\0')
-        return ("Invalid format");
-    return (NULL);
+	if (rgb < 0 || rgb > 255)
+		return ("Number must be in between 0-255 range");
+	s = skip_spaces(trimmed);
+	if (*s == '-' || *s == '+')
+		return ("Invalid format");
+	if (!ft_isdigit(*s))
+		return ("Invalid format");
+	while (ft_isdigit(*s))
+		s++;
+	s = skip_spaces(s);
+	if (*s != '\0')
+		return ("Invalid format");
+	return (NULL);
 }
 
-static int parse_rgb(char *trimmed, t_scene *scene, char **splits, char *line)
+static int	parse_rgb(char *trimmed, t_scene *scene, char **splits, char *line)
 {
-	char *ret;
-	int rgb;
+	char	*ret;
+	int		rgb;
 
 	rgb = ft_atoi(trimmed);
 	ret = rgb_syntax(trimmed, rgb);
-	if(ret != NULL)
+	if (ret != NULL)
 	{
 		free(line);
 		free(trimmed);
@@ -46,9 +57,9 @@ static int parse_rgb(char *trimmed, t_scene *scene, char **splits, char *line)
 
 static int	load_colour(t_scene *scene, char *line, char **splits)
 {
-	int red;
-	int green;
-	int blue;
+	int	red;
+	int	green;
+	int	blue;
 
 	red = parse_rgb(ft_strtrim(splits[0], " \t"), scene, splits, line);
 	green = parse_rgb(ft_strtrim(splits[1], " \t"), scene, splits, line);
@@ -56,13 +67,13 @@ static int	load_colour(t_scene *scene, char *line, char **splits)
 	return ((red << 16) | (green << 8) | blue);
 }
 
-int	parse_colour_line(t_scene *scene,char *line, int *path)
+int	parse_colour_line(t_scene *scene, char *line, int *path)
 {
-	char *s;
-	int rgb;
-	char **splits;
+	char	*s;
+	int		rgb;
+	char	**splits;
 
-	if(*path != -42)
+	if (*path != -42)
 	{
 		free(line);
 		parser_error(scene, NULL, "Duplicated rgb configuration");
@@ -70,7 +81,7 @@ int	parse_colour_line(t_scene *scene,char *line, int *path)
 	s = line;
 	++line;
 	splits = ft_split(line, ',');
-	if(!splits || !splits[0] || !splits[1] || !splits[2] || splits[3])
+	if (!splits || !splits[0] || !splits[1] || !splits[2] || splits[3])
 	{
 		free(s);
 		parser_error(scene, splits, "3 numbers are needed");
@@ -79,7 +90,3 @@ int	parse_colour_line(t_scene *scene,char *line, int *path)
 	free_split(splits);
 	return (rgb);
 }
-
-
-
-	

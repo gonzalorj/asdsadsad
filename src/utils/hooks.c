@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   hooks.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gonza <gonza@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/06/12 15:26:13 by gonza             #+#    #+#             */
+/*   Updated: 2026/06/12 15:27:26 by gonza            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/cub3d.h"
 
-static void rotate(t_player *p, double a)
+static void	rotate(t_player *p, double a)
 {
-	double x_old;
-	double plane_old;
+	double	x_old;
+	double	plane_old;
 
 	x_old = p->look_dir_x;
 	plane_old = p->camera_plane_x;
@@ -13,7 +25,7 @@ static void rotate(t_player *p, double a)
 	p->camera_plane_y = plane_old * sin(a) + p->camera_plane_y * cos(a);
 }
 
-static int press_event(int code, t_scene *s)
+static int	press_event(int code, t_scene *s)
 {
 	if (code == XK_Escape)
 		exit_event(s);
@@ -32,7 +44,7 @@ static int press_event(int code, t_scene *s)
 	return (0);
 }
 
-static int release_event(int code, t_scene *s)
+static int	release_event(int code, t_scene *s)
 {
 	if (code == XK_w || code == XK_W)
 		s->key.w = 0;
@@ -49,26 +61,25 @@ static int release_event(int code, t_scene *s)
 	return (0);
 }
 
-static int move_loop(t_scene *s)
+static int	move_loop(t_scene *s)
 {
-	if(s->key.w)
+	if (s->key.w)
 		walk_forwards(s);
-	if(s->key.a)
+	if (s->key.a)
 		walk_left(s);
-	if(s->key.s)
+	if (s->key.s)
 		walk_backwards(s);
-	if(s->key.d)
+	if (s->key.d)
 		walk_right(s);
-	if(s->key.left)
+	if (s->key.left)
 		rotate(&s->player, -RS);
-	if(s->key.right)
+	if (s->key.right)
 		rotate(&s->player, RS);
 	render(s);
 	return (0);
-
 }
 
-void events(t_scene *scene)
+void	events(t_scene *scene)
 {
 	mlx_hook(scene->wdw, 2, 1L << 0, press_event, scene);
 	mlx_hook(scene->wdw, 3, 1L << 1, release_event, scene);

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gonza <gonza@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/06/12 15:38:49 by gonza             #+#    #+#             */
+/*   Updated: 2026/06/12 15:38:49 by gonza            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CUB3D_H
 # define CUB3D_H
 
@@ -10,14 +22,14 @@
 # include "../libft/libft.h"
 # include "../mlx/mlx.h"
 
-#define SCALE 15
-#define TITLE "cub3d"
-#define MAX_TXTR 1024
-#define WDW_WIDTH 1024
-#define WDW_HEIGHT 1024
-#define MARGIN 0.000001
-#define MS 0.028
-#define RS 0.04
+# define SCALE 15
+# define TITLE "cub3d"
+# define MAX_TXTR 1024
+# define WDW_WIDTH 1024
+# define WDW_HEIGHT 1024
+# define MARGIN 0.000001
+# define MS 0.028
+# define RS 0.04
 
 typedef struct s_rgb
 {
@@ -25,7 +37,7 @@ typedef struct s_rgb
 	int	green;
 	int	blue;
 	int	is_set;
-}t_rgb;
+}				t_rgb;
 
 typedef struct s_ray
 {
@@ -54,7 +66,7 @@ typedef struct s_player
 
 	double	camera_plane_x;
 	double	camera_plane_y;
-}	t_player;
+}				t_player;
 
 typedef struct s_textures
 {
@@ -62,7 +74,7 @@ typedef struct s_textures
 	char	*south;
 	char	*west;
 	char	*east;
-}t_textures;
+}				t_textures;
 
 typedef struct s_img
 {
@@ -79,10 +91,9 @@ typedef struct s_txtr
 {
 	t_img		no;
 	t_img		so;
-	t_img 		ea;
+	t_img		ea;
 	t_img		we;
-}
-				t_txtr;
+}				t_txtr;
 
 typedef struct s_key
 {
@@ -92,29 +103,28 @@ typedef struct s_key
 	int					d;
 	int					left;
 	int					right;
-}
-						t_key;
+}				t_key;
+
 typedef struct s_node
 {
 	char				*line;
-	struct s_node	*next;
-}						t_node;
+	struct s_node		*next;
+}				t_node;
 
 typedef struct s_map
 {
-	char	**matrix;
-	int		width;
-	int		height;
-	int		f_color;
-	int		c_color;
-	int		fd;
-	char	*no_txtr;
-	char	*so_txtr;
-	char	*we_txtr;
-	char	*ea_txtr;
+	char		**matrix;
+	int			width;
+	int			height;
+	int			f_color;
+	int			c_color;
+	int			fd;
+	char		*no_txtr;
+	char		*so_txtr;
+	char		*we_txtr;
+	char		*ea_txtr;
 	t_node		*list;
-}t_map;
-
+}				t_map;
 
 typedef struct s_scene
 {
@@ -122,7 +132,7 @@ typedef struct s_scene
 	t_rgb		floor;
 	t_rgb		ceiling;
 	t_player	player;
-	int 		map_scale;
+	int			map_scale;
 	int			controls;
 	t_map		map;
 	void		*mlx;
@@ -130,78 +140,40 @@ typedef struct s_scene
 	t_img		image;
 	t_ray		ray;
 	t_key		key;
-}t_scene;
+}				t_scene;
 
-
-
-
-
-
-
-// INIT
-
-// ERROR + FREE
-//void	free_texture_paths(t_scene *scene)
-//void	free_map_data(t_scene *scene)
-//void	free_scene(t_scene *scene);
-//void	free_lines(char **lines);
 void	parser_error(t_scene *scene, char **lines, const char *msg);
-
-// PARSE ENTRY
-//void	check_cub_extension(const char *filename);
 void	parse_cub_file(t_scene *scene, char *filename);
-
-// PARSE FILE LOAD
 char	**read_cub_lines(const char *filename);
-//int	count_lines(int fd);
-//char	*strdup_without_newline(const char *line);
-//void	fill_lines_array(int fd, char **lines);
-
-// PARSE IDENTIFIERS
-void	parse_divide_cub_lines(t_scene *scene, char *line, int *start, int *end);
-//int	is_empty_line(const char *line);
-//int	is_map_line(char *line);
-//void	parse_identify_line(t_scene *scene, char **lines, char *line);
-//void	are_all_elements_present(t_scene *scene, char **lines, int *map_start);
-
-// PARSE TEXTURES
-//char		**select_texture_memory(t_scene *scene, char *identifier);
-//int		ensure_texture_file_exists(const char *path);
+void	process_lines(t_scene *scene, char *line, int *start, int *end);
 void	parse_texture_line(t_scene *scene, char *line, char **path);
-
-// PARSE COLORS
-//char	*skip_spaces(char *line);
-//int	search_line_for_colours(char **line, t_scene *scene, char **lines);
-//void	load_colour(t_rgb *colour, int red, int green, int blue);
-int	parse_colour_line(t_scene *scene,char *line, int *path);
-void append_node(t_scene *scene, char *line, t_node **head);
-
-// PARSER UTILS
-size_t	strlen(const char* str);
+int		parse_colour_line(t_scene *scene, char *line, int *path);
+void	append_node(t_scene *scene, char *line, t_node **head);
+size_t	strlen(const char *str);
 size_t	c3d_strlen(const char *str);
 int		strncmp(const char *s1, const char *s2, size_t n);
 int		safe_strncmp(const char *s1, const char *s2, size_t n);
 int		c3d_isspace(char c);
 char	*c3d_trim_spaces(const char *s);
-void check_map_lines(t_scene *scene, t_node *head);
-int	is_empty_line(const char *line);
-void build_matrix(t_scene *scene);
-void check_surroundings(t_scene *scene);
-void load_imgs(t_scene *scene);
-void get_directions(t_scene *scene, char dir);
-int	limit_n(int n, int min, int max);
-int txtr_x(t_ray *r, t_img *wall, t_player *player);
-int	txtr_y(int y, int height, int txtr_h);
-void draw_pixel(t_img *image, int x, int y, int rgb);
-void render(t_scene *scene);
-void walk_forwards(t_scene *s);
-void walk_left(t_scene *s);
-void walk_backwards(t_scene *s);
-void walk_right(t_scene *s);
-int	exit_event(t_scene *scene);
-void events(t_scene *scene);
+void	check_map_lines(t_scene *scene, t_node *head);
+int		is_empty_line(const char *line);
+void	build_matrix(t_scene *scene);
+void	check_surroundings(t_scene *scene);
+void	load_imgs(t_scene *scene);
+void	get_directions(t_scene *scene, char dir);
+int		limit_n(int n, int min, int max);
+int		txtr_x(t_ray *r, t_img *wall, t_player *player);
+int		txtr_y(int y, int height, int txtr_h);
+void	draw_pixel(t_img *image, int x, int y, int rgb);
+void	render(t_scene *scene);
+void	walk_forwards(t_scene *s);
+void	walk_left(t_scene *s);
+void	walk_backwards(t_scene *s);
+void	walk_right(t_scene *s);
+int		exit_event(t_scene *scene);
+void	events(t_scene *scene);
 void	free_textures(t_scene *s);
-void get_wall(t_scene *s, int x);
-void get_rays(t_scene *scene);
+void	get_wall(t_scene *s, int x);
+void	get_rays(t_scene *scene);
 
 #endif

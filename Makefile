@@ -10,6 +10,7 @@ MLX_LIBS = -L$(MLX_DIR) -lmlx -lX11 -lXext -lm
 
 LIBFT_DIR = libft
 LIBFT_A = $(LIBFT_DIR)/libft.a
+NRM_DIR = ./src ./include ./libft
 
 SRCS = src/main.c \
 	src/utils/error.c \
@@ -18,7 +19,6 @@ SRCS = src/main.c \
 	src/parse/parse_1.c \
 	src/parse/parse_2.c \
 	src/parse/parse_3.c \
-	src/parse/parse_cub_file.c \
 	src/parse/parse_utils.c \
 	src/parse/parser_colors.c \
 	src/parse/parser_texture.c \
@@ -55,5 +55,8 @@ fclean: clean
 	$(MAKE) -C $(LIBFT_DIR) fclean
 
 re: fclean all
+
+norm:
+	norminette $(NRM_DIR)
 
 .PHONY: all clean fclean re

@@ -1,5 +1,16 @@
-#include "../include/cub3d.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gonza <gonza@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/06/12 15:27:38 by gonza             #+#    #+#             */
+/*   Updated: 2026/06/12 15:34:44 by gonza            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
+#include "../include/cub3d.h"
 
 void	free_nodes(t_node *head)
 {
@@ -30,9 +41,9 @@ void	free_map(t_map *map)
 	}
 }
 
-static int exit_helper(t_scene *scene, int code)
+static int	exit_helper(t_scene *scene, int code)
 {
-	if(!scene)
+	if (!scene)
 		exit(code);
 	free_map(&scene->map);
 	free_textures(scene);
@@ -46,7 +57,6 @@ static int exit_helper(t_scene *scene, int code)
 		free(scene->mlx);
 	}
 	exit(code);
-	
 }
 
 int	exit_event(t_scene *scene)

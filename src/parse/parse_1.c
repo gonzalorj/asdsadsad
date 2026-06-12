@@ -59,7 +59,7 @@ void	parse_cub_file(t_scene *scene, char *filename)
 	while (line)
 	{
 		trim_nl(line);
-		parse_divide_cub_lines(scene, line, &start, &end);
+		process_lines(scene, line, &start, &end);
 		free(line);
 		line = get_next_line(scene->map.fd);
 	}

@@ -80,7 +80,7 @@ int	is_info_line(char *s)
 		|| !ft_strncmp(s, "C ", 2));
 }
 
-void	parse_divide_cub_lines(t_scene *scene, char *line, int *start, int *end)
+void	process_lines(t_scene *scene, char *line, int *start, int *end)
 {
 	if (is_empty_line(line))
 	{
