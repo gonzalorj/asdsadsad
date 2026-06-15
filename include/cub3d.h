@@ -133,7 +133,6 @@ typedef struct s_scene
 	t_rgb		ceiling;
 	t_player	player;
 	int			map_scale;
-	int			controls;
 	t_map		map;
 	void		*mlx;
 	void		*wdw;
@@ -175,5 +174,6 @@ void	events(t_scene *scene);
 void	free_textures(t_scene *s);
 void	get_wall(t_scene *s, int x);
 void	get_rays(t_scene *scene);
+void	gnl_clear(int fd);
 
 #endif

@@ -43,7 +43,6 @@ static void	parse_args(int argc, char **argv)
 static void	init_scene(t_scene *scene)
 {
 	ft_memset(scene, 0, sizeof(t_scene));
-	scene->controls = 1;
 	scene->map.f_color = -42;
 	scene->map.c_color = -42;
 }
@@ -66,15 +65,6 @@ static void	init_mlx(t_scene *scene, char *s)
 		parser_error(scene, NULL, "Adress error");
 }
 
-/*
-** Busca la posición inicial del jugador dentro del mapa.
-** Recorre toda la matriz hasta encontrar uno de los caracteres
-** de orientación ('N', 'S', 'E' o 'W'). Cuando lo encuentra:
-**   - Guarda la posición centrada en la celda (+0.5).
-**   - Inicializa la dirección y el plano de la cámara.
-**   - Sustituye el carácter de orientación por '0' para que
-**     la celda pase a considerarse suelo transitable.
-*/
 static void	get_start_pos(t_scene *scene)
 {
 	int	i;
