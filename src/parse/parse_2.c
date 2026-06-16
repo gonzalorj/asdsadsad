@@ -57,9 +57,9 @@ static void	parse_identify_line(t_scene *s, char *line)
 		parse_texture_line(s, line, &s->map.we_txtr);
 	else if (safe_strncmp(line, "EA", 2) == 0 && c3d_isspace(line[2]))
 		parse_texture_line(s, line, &s->map.ea_txtr);
-	else if (safe_strncmp(line, "F", 1) && c3d_isspace(line[1]))
+	else if (safe_strncmp(line, "F", 1) == 0 && c3d_isspace(line[1]))
 		s->map.f_color = parse_colour_line(s, line, &s->map.f_color);
-	else if (safe_strncmp(line, "C", 1) && c3d_isspace(line[1]))
+	else if (safe_strncmp(line, "C", 1) == 0 && c3d_isspace(line[1]))
 		s->map.c_color = parse_colour_line(s, line, &s->map.c_color);
 	else
 	{
