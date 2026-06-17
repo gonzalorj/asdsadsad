@@ -175,5 +175,7 @@ void	free_textures(t_scene *s);
 void	get_wall(t_scene *s, int x);
 void	get_rays(t_scene *scene);
 void	gnl_clear(int fd);
+int		end_comma(char *line);
+int		double_comma(char *s);
 
 #endif

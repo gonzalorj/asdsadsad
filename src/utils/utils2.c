@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gonza <gonza@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gorodrig <gorodrig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/12 15:34:55 by gonza             #+#    #+#             */
-/*   Updated: 2026/06/15 22:06:17 by gonza            ###   ########.fr       */
+/*   Updated: 2026/06/17 09:55:48 by gorodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,42 @@ void	gnl_clear(int fd)
 		free(tmp);
 		tmp = get_next_line(fd);
 	}
+}
+
+int	end_comma(char *line)
+{
+	char	*s;
+	char	*e;
+
+	while (*line && c3d_isspace(*line))
+		line++;
+	s = line;
+	if (*s == ',' || *s == '\0')
+		return (1);
+	e = s + ft_strlen(s) - 1;
+	while (e < s && c3d_isspace(*e))
+		e--;
+	return (*e == ',');
+}
+
+int	double_comma(char *s)
+{
+	int	i;
+	int	seen;
+
+	i = 0;
+	seen = 0;
+	while (s[i])
+	{
+		if (s[i] == ',')
+		{
+			if (seen)
+				return (1);
+			seen = 1;
+		}
+		else if (!c3d_isspace(s[i]))
+			seen = 0;
+		i++;
+	}
+	return (0);
 }

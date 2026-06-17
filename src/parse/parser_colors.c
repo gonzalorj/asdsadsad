@@ -80,6 +80,11 @@ int	parse_colour_line(t_scene *scene, char *line, int *path)
 	}
 	s = line;
 	++line;
+	if (end_comma(line) || double_comma(line))
+	{
+		free(s);
+		parser_error(scene, NULL, "3 numbers are needed");
+	}
 	splits = ft_split(line, ',');
 	if (!splits || !splits[0] || !splits[1] || !splits[2] || splits[3])
 	{
