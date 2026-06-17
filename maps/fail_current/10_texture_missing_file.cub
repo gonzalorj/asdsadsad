@@ -1,7 +1,7 @@
-NO ./mapas/textures/does_not_exist.xpm
-SO ./mapas/textures/south.xpm
-WE ./mapas/textures/west.xpm
-EA ./mapas/textures/east.xpm
+NO ./maps/textures/does_not_exist.xpm
+SO ./maps/textures/south.xpm
+WE ./maps/textures/west.xpm
+EA ./maps/textures/east.xpm
 F 220,100,0
 C 225,30,0
 111
